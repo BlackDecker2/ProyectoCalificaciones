@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Materia; // Asegúrate de importar el modelo correcto
 use App\Models\User;
-
+use App\Models\Calificacion;
+use Illuminate\Support\Facades\Log;
+use App\Models\Tarea;
 
 
 class MateriaController extends Controller
@@ -81,7 +83,50 @@ class MateriaController extends Controller
         return view('materias.show', compact('materia', 'tareas'));
     }
 
+    //Mostrar la vista de matricular
+    public function mostrarFormularioMatricula(Materia $materia)
+    {
+        $estudiantes = User::role('Estudiante')->get(); // Obtén la lista de estudiantes disponibles para matricular
 
+        return view('materias.matricular', compact('materia', 'estudiantes'));
+    }
+
+
+   /*  public function searchEstudiantes(Request $request)
+    {
+        $query = $request->input('query');
+        $estudiantes = User::where('email', 'LIKE', "%$query%")->get();
+
+        // Depura la consulta
+        \Log::info($estudiantes);
+
+        return view('estudiantes.suggestions', compact('estudiantes'));
+    }
+ */
+    
+
+    public function matricularEstudiantes(Request $request, Materia $materia)
+    {
+        $estudiantesIds = $request->input('estudiantes'); // Obtén los IDs de los estudiantes que deseas matricular
+    
+        // Asocia los estudiantes a la materia
+        $materia->estudiantes()->attach($estudiantesIds);
+    
+        return redirect()->route('materias.show', $materia)->with('success', 'Estudiante matriculado correctamente.');
+    }
+
+ 
+    
+
+    public function calificaciones(Materia $materia)
+    {
+        $matriculas = $materia->estudiantes; // Obtén los estudiantes matriculados en la materia
+        $tareas = $materia->tareas; // Obtén las tareas asociadas a la materia
+
+        return view('materias.calificaciones', compact('materia', 'matriculas', 'tareas'));
+        
+        
+    }
     
 
 

@@ -45,14 +45,14 @@
                             @foreach ($materias as $materia)
                             <div class="col-lg-4 mb-3">
                                 <div class="card">
-                                    <div class="card-header" style="background-color: #d31717; color: white; font-size: 20px;">
+                                    <div class="card-header" style="background-color: #e71212; color: white; font-size: 20px;">
                                         {{ $materia->nombre }}
                                     </div>
                                     <div class="card-body">
                                         <p style="font-weight: bold;">Profesores:</p>
                                         <ul>
                                             @foreach($materia->profesores as $profesor)
-                                                <li style="color: #e74c3c">{{ $profesor->name }}</li>
+                                                <li style="color: #070100">{{ $profesor->name }}</li>
                                             @endforeach
                                         </ul>
                                         <p style="font-weight: bold;">Código: {{ $materia->codigo }}</p>

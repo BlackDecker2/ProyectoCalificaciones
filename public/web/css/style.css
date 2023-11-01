@@ -1771,8 +1771,19 @@ h6 .badge {
     color: #fff !important;
 }
 
+.btn-lighting, .btn-lighting.disabled {
+    box-shadow: 0 2px 6px #f35555;
+    background-color: #ffdbdb;
+    border-color: #f1aeae;
+    color: #191d21;
+}
+
+.btn-lighting:hover, .btn-lighting:focus, .btn-lighting:active, .btn-lighting.disabled:hover, .btn-lighting.disabled:focus, .btn-lighting.disabled:active {
+    background-color: #ff7f7f !important;
+}
+
 .btn-light, .btn-light.disabled {
-    box-shadow: 0 2px 6px #e6ecf1;
+    box-shadow: 0 2px 6px #ffffffc4;
     background-color: #e3eaef;
     border-color: #e3eaef;
     color: #191d21;
@@ -1781,7 +1792,6 @@ h6 .badge {
 .btn-light:hover, .btn-light:focus, .btn-light:active, .btn-light.disabled:hover, .btn-light.disabled:focus, .btn-light.disabled:active {
     background-color: #c3d2dc !important;
 }
-
 .btn-outline-light, .btn-outline-light.disabled {
     border-color: #e3eaef;
     color: #e3eaef;

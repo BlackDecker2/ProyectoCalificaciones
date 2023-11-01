@@ -35,16 +35,14 @@
                     }, 4000);
                 </script>
                       <div class="card-body">                           
-                        @can('crear-usuario')
-                        <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>                        
-                        @endcan
+                        
                             <table class="table table-striped mt-2">
                               <thead style="background-color:#ec4b4b">                                     
                                   <th style="display: none;">ID</th>
                                   <th style="color:#fff;">Nombre</th>
                                   <th style="color:#fff;">E-mail</th>
                                   <th style="color:#fff;">Rol</th>
-                                  <th style="color:#fff;">Acciones</th>                                                                   
+                                  <th style="color:#fff;">Acciones</th>                                                                
                               </thead>
                               <tbody>
                                 @foreach ($usuarios as $usuario)

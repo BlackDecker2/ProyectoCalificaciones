@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Document::class, 'document_user', 'user_id', 'document_id');
     }
+
+    public function calificaciones()
+    {
+        return $this->hasMany(Calificacion::class);
+    }
 }

@@ -8,6 +8,10 @@
 <section class="section">
     <div class="section-header">
         <h3 class="page__heading">Tareas de {{ $materia->nombre }}</h3>
+        <!-- En materias.show.blade.php u otra vista donde muestres la información de la materia -->
+        <a href="{{ route('materias.matricular', $materia) }}" class="btn btn-lighting" style="margin-left: 45%;">Matricular Estudiantes</a>
+        <a href="{{ route('materias.calificaciones', $materia) }}" class="btn btn-lighting" style="margin-left: 10px;">Ver Estudiantes</a>
+
     </div>
     <div class="section-body">
         <div class="row">

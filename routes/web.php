@@ -66,6 +66,22 @@ Route::get('materias/{materia}/tareas/create', [TareaController::class, 'create'
 Route::post('materias/{materia}/tareas', [TareaController::class, 'store'])->name('tareas.store');
 
 Route::get('materias/{materia}/tareas', [TareaController::class, 'index'])->name('tareas.index');
+//Ruta para matricular Estudiante
+Route::get('/materias/{materia}/matricular',  [MateriaController::class, 'mostrarFormularioMatricula'])->name('materias.matricular');
+// Ruta para buscar estudiantes por correo electrónico
+Route::get('materias/{materia}/search-estudiantes', [MateriaController::class, 'searchEstudiantes'])->name('materias.searchEstudiantes');
+
+
+Route::post('/materias/{materia}/matricular', [MateriaController::class, 'matricularEstudiantes'])->name('materias.matricularEstudiantes');
+
+
+// Rutas para mostrar calificaciones
+Route::get('/materias/{materia}/calificaciones', [MateriaController::class, 'calificaciones'])->name('materias.calificaciones');
+
+// Rutas para buscar estudiantes por correo electrónico
+Route::post('/materias/{materia}/search-estudiantes', 'MateriaController@searchEstudiantes')->name('materias.searchEstudiantes');
+
+
 
 Route::get('materias/{materia}/tareas/{tarea}/edit', [TareaController::class, 'edit'])->name('tareas.edit');
 Route::delete('materias/{materia}/tareas/{tarea}', [TareaController::class, 'destroy'])->name('tareas.destroy');
