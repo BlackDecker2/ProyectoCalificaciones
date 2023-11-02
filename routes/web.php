@@ -8,6 +8,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\TareaController;
+use App\Http\Controllers\TareaEstudianteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('documents', DocumentController::class);
     Route::resource('tareas', TareaController::class);
     Route::resource('materias', MateriaController::class);
+    Route::resource('tareas-estudiante', TareaEstudianteController::class);
     
 });
 
@@ -68,8 +70,9 @@ Route::post('materias/{materia}/tareas', [TareaController::class, 'store'])->nam
 Route::get('materias/{materia}/tareas', [TareaController::class, 'index'])->name('tareas.index');
 //Ruta para matricular Estudiante
 Route::get('/materias/{materia}/matricular',  [MateriaController::class, 'mostrarFormularioMatricula'])->name('materias.matricular');
-// Ruta para buscar estudiantes por correo electrónico
-Route::get('materias/{materia}/search-estudiantes', [MateriaController::class, 'searchEstudiantes'])->name('materias.searchEstudiantes');
+
+// Otras rutas específicas para estudiantes, si es necesario
+
 
 
 Route::post('/materias/{materia}/matricular', [MateriaController::class, 'matricularEstudiantes'])->name('materias.matricularEstudiantes');
@@ -91,3 +94,10 @@ Route::get('download/{id}', [DocumentController::class, 'download'])->name('docu
 
 Route::get('documents/{document}/share', [DocumentController::class, 'share'])->name('documents.share');
 Route::post('documents/{document}/share', [DocumentController::class, 'doShare'])->name('documents.doShare');
+
+
+// Rutas para las tareas de estudiantes
+Route::get('tareas-estudiante/create', [TareaEstudianteController::class, 'create'])->name('tareas-estudiante.create');
+// routes/web.php
+
+Route::post('/tareas-estudiante', [TareaEstudianteController::class, 'store'])->name('tareas-estudiante.store');

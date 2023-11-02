@@ -7,7 +7,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Document;
+use App\Models\TareaEstudiante;
 
 // spatie
 use Spatie\Permission\Traits\HasRoles;
@@ -55,5 +57,10 @@ class User extends Authenticatable
     public function calificaciones()
     {
         return $this->hasMany(Calificacion::class);
+    }
+
+    public function tareasEstudiante(): HasMany
+    {
+        return $this->hasMany(TareaEstudiante::class);
     }
 }

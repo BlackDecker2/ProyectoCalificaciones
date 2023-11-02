@@ -65,7 +65,10 @@
                                             @if ($tarea->archivo)
                                             <a class="btn btn-light" style="margin-top: 20px"  href="{{ asset('tareas/' . $tarea->archivo) }}" target="_blank">Ver Archivo</a>
                                             @endif
+                                            @can('cargar-tarea')
+                                            <a href="{{ route('tareas-estudiante.create') }}">Cargar Tarea</a>
 
+                                            @endcan
                                             
                                             <a href="{{ route('tareas.edit', ['materia' => $materia, 'tarea' => $tarea]) }}" class="btn btn-primary" style="margin-top: 22px">Editar Tarea</a>
 
@@ -74,7 +77,8 @@
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" style="margin-top: 20px">Eliminar</button>
                                             </form>
-                                         
+                                            
+
                                         
                                         </div>
                                     </div>

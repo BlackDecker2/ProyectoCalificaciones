@@ -45,10 +45,15 @@ class SeederTablaPermisos extends Seeder
             'crear-tarea',
             'editar-tarea',
             'borrar-tarea',
+            'cargar-tarea',
             
         ];
-        foreach($permisos as $permiso){
-            Permission::create(['name'=>$permiso]);
+        foreach ($permisos as $permiso) {
+            // Busca el permiso por nombre
+            $existingPermission = Permission::firstOrNew(['name' => $permiso]);
+            
+            // Guarda o actualiza el permiso
+            $existingPermission->save();
         }
         //
     }
