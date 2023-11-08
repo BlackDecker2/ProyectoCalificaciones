@@ -2,63 +2,71 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\TareaEstudiante;
-use App\Models\Materia;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Tarea;
 
 class TareaEstudianteController extends Controller
 {
-    public function create()
+
+    public function index(Tarea $tarea)
+{
+    // Obtiene las tareas de estudiantes relacionadas con la tarea específica
+    $tareasEstudiantes = $tarea->tareasEstudiantes;
+
+    return view('tareas-estudiante.index', compact('tarea', 'tareasEstudiantes'));
+}
+
+    public function create($tareaId)
     {
-        return view('tareas-estudiante.create');
-
+        // Cargar la tarea desde la base de datos
+        $tarea = Tarea::find($tareaId);
+    
+        if (!$tarea) {
+            return abort(404); // Manejar el caso si la tarea no se encuentra
+        }
+    
+        return view('tareas-estudiante.create', compact('tarea'));
     }
+    
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'required',
-            'archivo' => 'required|file|mimes:pdf,docx,txt',
-        ]);
+    
 
-        $user = Auth::user(); // Obtén al usuario actual (estudiante)
+    public function store(Request $request, Tarea $tarea)
+{
+    $request->validate([
+        'nombre' => 'required',
+        'descripcion' => 'required',
+        'archivo' => 'required|file|mimes:pdf,docx,txt',
+    ]);
 
-        $archivo = $request->file('archivo');
-        $nombreArchivo = $archivo->getClientOriginalName();
+    // Obtiene el usuario actualmente autenticado
+    $user = Auth::user();
 
-        // Guarda el archivo en una ubicación específica
-        $archivo->storeAs('tareas_estudiante', $nombreArchivo, 'public');
+    $archivo = $request->file('archivo');
+    $nombreArchivo = $archivo->getClientOriginalName();
+    $archivo->move(public_path('/tareas_estudiante/'), $nombreArchivo); // Ajusta la ubicación según tus necesidades
 
-        // Crea la tarea del estudiante
-        $tareaEstudiante = new TareaEstudiante([
-            'nombre' => $request->input('nombre'),
-            'descripcion' => $request->input('descripcion'),
-            'archivo' => $nombreArchivo,
-        ]);
 
-        // Asocia la tarea con el estudiante
-        $user->tareasEstudiante()->save($tareaEstudiante);
+    $tareaId = $request->input('tarea_id');
 
-        return redirect()->route('dashboard')->with('success', 'Tarea creada correctamente');
-    }
+    $tareaEstudiante = new TareaEstudiante([
+        'nombre' => $request->input('nombre'),
+        'descripcion' => $request->input('descripcion'),
+        'archivo' => $nombreArchivo,
+    ]);
 
-    // Otras acciones para editar y eliminar tareas (puedes agregarlas según tus necesidades)
+    // Asigna el ID del usuario autenticado como 'user_id'
+    $tareaEstudiante->user_id = $user->id;
 
-    // public function edit(TareaEstudiante $tareaEstudiante)
-    // {
-    //     return view('tareas-estudiante.edit', compact('tareaEstudiante'));
-    // }
+    $tareaEstudiante->tarea_id = $tareaId;
 
-    // public function update(Request $request, TareaEstudiante $tareaEstudiante)
-    // {
-    //     // Lógica para actualizar la tarea del estudiante
-    // }
+    $user->tareasEstudiante()->save($tareaEstudiante);
 
-    // public function destroy(TareaEstudiante $tareaEstudiante)
-    // {
-    //     // Lógica para eliminar la tarea del estudiante
-    // }
+    return redirect()->route('home')->with('success', 'Tarea cargada correctamente');;
+}
+
+
+
 }

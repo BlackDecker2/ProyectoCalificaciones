@@ -97,7 +97,11 @@ Route::post('documents/{document}/share', [DocumentController::class, 'doShare']
 
 
 // Rutas para las tareas de estudiantes
-Route::get('tareas-estudiante/create', [TareaEstudianteController::class, 'create'])->name('tareas-estudiante.create');
+
+// Ruta para mostrar la lista de tareas de estudiantes
+Route::get('tareas-estudiante/index/{tarea}', [TareaEstudianteController::class, 'index'])->name('tareas-estudiante.index');
+
+Route::get('tareas-estudiante/create/{tareaId}', [TareaEstudianteController::class, 'create'])->name('tareas-estudiante.create');
 // routes/web.php
 
 Route::post('/tareas-estudiante', [TareaEstudianteController::class, 'store'])->name('tareas-estudiante.store');

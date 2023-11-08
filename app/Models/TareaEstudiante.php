@@ -2,23 +2,26 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class TareaEstudiante extends Model
 {
-    protected $table = 'tarea_estudiante'; // Nombre de la tabla en la base de datos
+    use HasFactory;
 
-    protected $fillable = ['tarea_id', 'user_id']; // Especifica las columnas que se pueden llenar
+    protected $table = 'tarea_estudiante';
+    // Laravel usará automáticamente 'tarea_estudiante' como el nombre de la tabla
 
-    // Establece la relación con el modelo Tarea
+    protected $fillable = ['tarea_id', 'user_id', 'descripcion', 'archivo'];
+
     public function tarea()
     {
         return $this->belongsTo(Tarea::class, 'tarea_id', 'id');
     }
 
-    // Establece la relación con el modelo User (Estudiante)
     public function estudiante()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
+

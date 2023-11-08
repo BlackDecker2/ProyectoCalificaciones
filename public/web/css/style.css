@@ -1870,6 +1870,17 @@ h6 .badge {
     background-color: #ff0000 !important;
 }
 
+.btn-index, .btn-index.disabled {
+    color: rgb(5, 5, 5);
+    box-shadow: 0 2px 6px #ffffff;
+    background-color: #e5ff00;
+    border-color: #feffda;
+}
+
+.btn-index:focus, .btn-index.disabled:focus {
+    background-color: #fffb00 !important;
+}
+
 .btn-primary:focus:active, .btn-primary.disabled:focus:active {
     background-color: #26166d !important;
 }
@@ -3953,6 +3964,60 @@ body.layout-3 .main-footer {
     transition: all .5s;
 }
 
+.dark-mode {
+    background-color: #000000;
+    color: #fff;
+    /* Agrega otros estilos de esquema de color oscuro aquí */
+}
+
+/* Estilos para el botón de accesibilidad */
+#accessibility-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Estilos para el menú de opciones de accesibilidad */
+#accessibility-menu {
+    display: none;
+    background-color: #fff;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#accessibility-menu button {
+    margin-right: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#accessibility-menu button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para tablas en esquema de color oscuro */
+.dark-mode table {
+    color: #ffffff; /* Cambia el color del texto a blanco */
+}
+
+/* También puedes definir estilos para otros elementos si es necesario */
+.dark-mode .element-class {
+    color: #fff; /* Cambia el color del texto a blanco para otros elementos */
+}
+
 .main-sidebar .sidebar-menu li.active > ul.dropdown-menu li a:hover {
     background-color: #f8fafb;
 }
@@ -4087,6 +4152,7 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
         display: block;
     }
 
+    
     .main-content {
         padding-left: 30px;
         padding-right: 30px;

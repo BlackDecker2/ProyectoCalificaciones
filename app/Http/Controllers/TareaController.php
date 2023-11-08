@@ -22,6 +22,8 @@ class TareaController extends Controller
     public function index(Materia $materia)
     {
         $tareas = $materia->tareas; // Obtiene las tareas de la materia
+
+      
         return view('tareas.index', compact('materia', 'tareas'));
     }
     

@@ -3,6 +3,21 @@
         <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
     </ul>
 </form>
+@include('accessibility')
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var accessibilityButton = $('#accessibility-button');
+        var accessibilityMenu = $('#accessibility-menu');
+
+        accessibilityButton.on('click', function () {
+            accessibilityMenu.toggle();
+        });
+    });
+</script>
+
 <ul class="navbar-nav navbar-right">
 
     @if(\Illuminate\Support\Facades\Auth::user())
@@ -19,12 +34,17 @@
                 <div class="dropdown-title">
                     Welcome, {{\Illuminate\Support\Facades\Auth::user()->name}}</div>
                 <a class="dropdown-item has-icon edit-profile" href="#" data-id="{{ \Auth::id() }}">
-                    <i class="fa fa-user"></i>Edit Profile</a>
-                <a class="dropdown-item has-icon" data-toggle="modal" data-target="#changePasswordModal" href="#" data-id="{{ \Auth::id() }}"><i
-                            class="fa fa-lock"> </i>Change Password</a>
+                    <i class="fa fa-user"></i> Edit Profile
+                </a>
+                <a class="dropdown-item has-icon" data-toggle="modal" data-target="#changePasswordModal" href="#" data-id="{{ \Auth::id() }}">
+                    <i class="fa fa-lock"> </i> Change Password
+                </a>
                 <a href="{{ url('logout') }}" class="dropdown-item has-icon text-danger"
                    onclick="event.preventDefault(); localStorage.clear();  document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+                <a class="dropdown-item has-icon" href="{{ url('/accessibility') }}">
+                    <i class="fas fa-wheelchair"></i> Accessibility
                 </a>
                 <form id="logout-form" action="{{ url('/logout') }}" method="POST" class="d-none">
                     {{ csrf_field() }}
@@ -44,8 +64,11 @@
                     <i class="fas fa-sign-in-alt"></i> {{ __('messages.common.login') }}
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="{{ route('register') }}" class="dropdown-item has-icon">
+                <a href="{{ route('register') }}" class=" dropdown-item has-icon">
                     <i class="fas fa-user-plus"></i> {{ __('messages.common.register') }}
+                </a>
+                <a class="dropdown-item has-icon" href="{{ url('/accessibility') }}">
+                    <i class="fas fa-wheelchair"></i> Accessibility
                 </a>
             </div>
         </li>

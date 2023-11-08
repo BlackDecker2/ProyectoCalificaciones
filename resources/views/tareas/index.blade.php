@@ -41,8 +41,9 @@
                     }, 4000);
                 </script>
                     <div class="card-body">
+                        @can('crear-tarea')
                         <a class="btn btn-warning" href="{{ route('tareas.create', ['materia' => $materia->id]) }}">Nueva Tarea</a>
-
+                        @endcan
                         
 
                         <div class="accordion" id="accordionTareas" style="margin-top: 10px; background-color:rgba(197, 188, 188, 0.103);">
@@ -59,25 +60,30 @@
                                     <div id="collapse{{ $tarea->id }}" class="collapse" aria-labelledby="heading{{ $tarea->id }} "  data-parent="#accordionTareas">
                                         <div class="card-body" style="background-color: rgba(170, 156, 156, 0.103); color:rgb(26, 23, 23)">
                                             <p><strong>Descripcion:</strong> {{ $tarea->descripcion }}</p>
-                                            <p style="color: red"><strong>Fecha de Vencimiento:</strong> {{ $tarea->fecha_vencimiento }}</p>
+                                            <p class="fec_vencimiento" style="color: red"><strong>Fecha de Vencimiento:</strong> {{ $tarea->fecha_vencimiento }}</p>
                                             <p><strong>Porcentaje:</strong> {{ $tarea->porcentaje }}</p>
                                             <p><strong>Materia:</strong> {{ $tarea->materia->nombre }}</p>
                                             @if ($tarea->archivo)
                                             <a class="btn btn-light" style="margin-top: 20px"  href="{{ asset('tareas/' . $tarea->archivo) }}" target="_blank">Ver Archivo</a>
                                             @endif
-                                            @can('cargar-tarea')
-                                            <a href="{{ route('tareas-estudiante.create') }}">Cargar Tarea</a>
+                                           
+                                                @can('cargar-tarea')
+                                                <a class="btn btn-success" href="{{ route('tareas-estudiante.create', ['tareaId' => $tarea->id]) }}">Cargar Tarea</a>
+                                                @endcan
 
-                                            @endcan
-                                            
+                                                <a class="btn btn-index" href="{{ route('tareas-estudiante.index', ['tarea' => $tarea]) }}">Ver Tareas de Estudiantes</a>
+
+
+                                            @can('editar-tarea')
                                             <a href="{{ route('tareas.edit', ['materia' => $materia, 'tarea' => $tarea]) }}" class="btn btn-primary" style="margin-top: 22px">Editar Tarea</a>
-
+                                            @endcan
+                                            @can('borrar-tarea')
                                             <form action="{{ route('tareas.destroy', [$materia, $tarea]) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" style="margin-top: 20px">Eliminar</button>
                                             </form>
-                                            
+                                            @endcan
 
                                         
                                         </div>
