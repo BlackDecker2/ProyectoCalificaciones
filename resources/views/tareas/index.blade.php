@@ -77,19 +77,22 @@
                                                         <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             Acciones
                                                         </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="border-block: inherit;">
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="border-block:inherit;">
                                                             @can('cargar-tarea')
-                                                                <button class="dropdown-item cargar-tarea-btn" data-tarea-id="{{ $tarea->id }}" data-materia-id="{{ $materia->id }}" data-toggle="modal" data-target="#cargarTareaModal">Cargar Tarea</button>
+                                                                <a class="dropdown-item" style="background-color: #ddd8d8" href="{{ route('tareas-estudiante.create', ['tareaId' => $tarea->id, 'materia' => $materia->id]) }}">Cargar Tarea</a>
                                                             @endcan
-                                                            <button class="dropdown-item ir-a-tareas-btn" data-tarea-id="{{ $tarea->id }}" data-materia-id="{{ $materia->id }}" data-toggle="modal" data-target="#tareasEstudiantesModal">Ir a Tareas de Estudiantes</button>
+                                                            <a class="dropdown-item" style="background-color: #ddd8d8;" href="{{ route('tareas-estudiante.index', ['materia' => $materia->id, 'tarea' => $tarea->id]) }}">Ir a Tareas de Estudiantes</a>
                                                             @can('editar-tarea')
-                                                                <button class="dropdown-item editar-tarea-btn" data-materia-id="{{ $materia->id }}" data-tarea-id="{{ $tarea->id }}" data-toggle="modal" data-target="#editarTareaModal">Editar Tarea</button>
+                                                                <a class="dropdown-item" style="background-color: #ddd8d8" href="{{ route('tareas.edit', ['materia' => $materia, 'tarea' => $tarea]) }}">Editar Tarea</a>
                                                             @endcan
                                                             @can('borrar-tarea')
-                                                                <button class="dropdown-item borrar-tarea-btn" data-materia-id="{{ $materia->id }}" data-tarea-id="{{ $tarea->id }}" data-toggle="modal" data-target="#eliminarTareaModal">Eliminar</button>
+                                                                <form action="{{ route('tareas.destroy', [$materia, $tarea]) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="dropdown-item" style="background-color: #ddd8d8">Eliminar</button>
+                                                                </form>
                                                             @endcan
                                                         </div>
-                                                        
                                                     </div>
                                                 </div>
                                             @endif
