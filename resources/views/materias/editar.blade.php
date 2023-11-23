@@ -47,8 +47,8 @@
         
         
     
-        <button type="submit" class="btn btn-primary">Actualizar Materia</button>
-        <a href="{{ route('materias.index') }}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-details">Actualizar Materia</button>
+        <a href="{{ route('materias.index') }}" class="btn btn-info">Cancelar</a>
     </form>
     
 </div>

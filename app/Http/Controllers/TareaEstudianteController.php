@@ -5,20 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\TareaEstudiante;
+use App\Models\Materia;
 use App\Models\Tarea;
 
 class TareaEstudianteController extends Controller
 {
 
-    public function index(Tarea $tarea)
-{
+    public function index(Materia $materia, Tarea $tarea)
+    {
     // Obtiene las tareas de estudiantes relacionadas con la tarea específica
     $tareasEstudiantes = $tarea->tareasEstudiantes;
 
-    return view('tareas-estudiante.index', compact('tarea', 'tareasEstudiantes'));
-}
+    return view('tareas-estudiante.index', compact('materia', 'tarea', 'tareasEstudiantes'));
+    }
 
-    public function create($tareaId)
+    public function create(Materia $materia, $tareaId)
     {
         // Cargar la tarea desde la base de datos
         $tarea = Tarea::find($tareaId);
@@ -27,7 +28,7 @@ class TareaEstudianteController extends Controller
             return abort(404); // Manejar el caso si la tarea no se encuentra
         }
     
-        return view('tareas-estudiante.create', compact('tarea'));
+        return view('tareas-estudiante.create', compact('materia','tarea'));
     }
     
 
@@ -38,7 +39,7 @@ class TareaEstudianteController extends Controller
     $request->validate([
         'nombre' => 'required',
         'descripcion' => 'required',
-        'archivo' => 'required|file|mimes:pdf,docx,txt',
+        'archivo' => 'required|file|mimes:pdf,docx,txt,jpg,zip,rar,png,sql',
     ]);
 
     // Obtiene el usuario actualmente autenticado
@@ -66,6 +67,22 @@ class TareaEstudianteController extends Controller
 
     return redirect()->route('home')->with('success', 'Tarea cargada correctamente');;
 }
+
+
+public function calificar(Request $request, TareaEstudiante $tareaEstudiante)
+{
+    $request->validate([
+        'calificacion' => 'required|numeric|between:0,5|regex:/^\d+(\.\d{1,2})?$/',
+    ]);
+
+    // Crea o actualiza la calificación asociada
+    $tareaEstudiante->calificacion()->updateOrCreate([], ['puntaje' => $request->calificacion]);
+
+    return redirect()->back()->with('success', 'Tarea calificada correctamente.');
+}
+
+
+
 
 
 

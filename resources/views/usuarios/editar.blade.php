@@ -47,7 +47,7 @@
                                 {!! Form::select('roles[]', $roles, $userRole, ['class' => 'form-control', 'multiple']) !!}
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                            <button type="submit" class="btn btn-details btn-block">Guardar</button>
                             {!! Form::close() !!}
                         </div>
                     </div>

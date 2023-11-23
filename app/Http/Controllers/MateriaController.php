@@ -115,6 +115,17 @@ class MateriaController extends Controller
         return redirect()->route('materias.show', $materia)->with('success', 'Estudiante matriculado correctamente.');
     }
 
+    public function desmatricularEstudiantes(Request $request, Materia $materia)
+    {
+        $estudiantesIds = $request->input('estudiantes'); // Obtén los IDs de los estudiantes que deseas desmatricular
+
+        // Desvincula los estudiantes de la materia
+        $materia->estudiantes()->detach($estudiantesIds);
+
+        return redirect()->route('materias.calificaciones', $materia)->with('success', 'Estudiante desmatriculados correctamente.');
+    }
+
+
  
     
 

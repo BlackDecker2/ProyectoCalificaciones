@@ -1,5 +1,5 @@
 <button id="accessibility-button" class="btn btn-light">
-    <i class="fas fa-universal-access"></i> Accesibilidad <i class="fas fa-chevron-down"></i>
+    <i class="fas fa-universal-access" style=" color: rgb(182, 47, 47);"></i> Accesibilidad <i class="fas fa-chevron-down fa-xs"></i>
 </button>
 <div id="accessibility-menu" class="accessibility-menu">
     <button id="increase-font-size" style="align-content: center; margin-top:1px;">A+</button>
@@ -35,7 +35,7 @@ $('#change-color-scheme').on('click', function () {
         $('section').removeClass('dark-mode');
         $('div').removeClass('dark-mode');
         $('nav').removeClass('dark-mode');
-        $('h5, table, td, p, div, li').css('color', ''); // Restaura el color original del texto
+        $('h, table, td, p, div, li').css('color', ''); // Restaura el color original del texto
     } else {
         // Cambia a esquema de color oscuro
         $('body').addClass('dark-mode');

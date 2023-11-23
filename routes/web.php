@@ -25,15 +25,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 //y creamos un grupo de rutas protegidas para los controladores
 Route::group(['middleware' => ['auth']], function() {
+    
     Route::resource('roles', RolController::class);
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('documents', DocumentController::class);
@@ -76,13 +76,15 @@ Route::get('/materias/{materia}/matricular',  [MateriaController::class, 'mostra
 
 
 Route::post('/materias/{materia}/matricular', [MateriaController::class, 'matricularEstudiantes'])->name('materias.matricularEstudiantes');
+Route::delete('/materias/{materia}/desmatricular-estudiantes', [MateriaController::class, 'desmatricularEstudiantes'])->name('materias.desmatricular-estudiantes');
+
 
 
 // Rutas para mostrar calificaciones
 Route::get('/materias/{materia}/calificaciones', [MateriaController::class, 'calificaciones'])->name('materias.calificaciones');
 
 // Rutas para buscar estudiantes por correo electrónico
-Route::post('/materias/{materia}/search-estudiantes', 'MateriaController@searchEstudiantes')->name('materias.searchEstudiantes');
+Route::post('/materias/{materia}/search-estudiantes', [MateriaController::class,'searchEstudiantes'])->name('materias.searchEstudiantes');
 
 
 
@@ -96,12 +98,14 @@ Route::get('documents/{document}/share', [DocumentController::class, 'share'])->
 Route::post('documents/{document}/share', [DocumentController::class, 'doShare'])->name('documents.doShare');
 
 
+
 // Rutas para las tareas de estudiantes
+Route::get('materias/{materia}/tareas-estudiante/index/{tarea}', [TareaEstudianteController::class, 'index'])->name('tareas-estudiante.index');
 
-// Ruta para mostrar la lista de tareas de estudiantes
-Route::get('tareas-estudiante/index/{tarea}', [TareaEstudianteController::class, 'index'])->name('tareas-estudiante.index');
 
-Route::get('tareas-estudiante/create/{tareaId}', [TareaEstudianteController::class, 'create'])->name('tareas-estudiante.create');
+Route::get('materias/{materia}/tareas-estudiante/create/{tareaId}', [TareaEstudianteController::class, 'create'])->name('tareas-estudiante.create');
 // routes/web.php
 
 Route::post('/tareas-estudiante', [TareaEstudianteController::class, 'store'])->name('tareas-estudiante.store');
+// En routes/web.php
+Route::put('/tareas-estudiante/{tareaEstudiante}/calificar', [TareaEstudianteController::class, 'calificar'])->name('tareas-estudiante.calificar');

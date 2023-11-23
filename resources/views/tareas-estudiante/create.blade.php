@@ -24,7 +24,8 @@
 
         <form action="{{ route('tareas-estudiante.store') }}" method="post" enctype="multipart/form-data">
             @csrf
-        
+            
+
             <input type="hidden" name="tarea_id" value="{{ $tarea->id }}">
 
         
@@ -43,8 +44,8 @@
                 <input type="file" name="archivo" id="archivo" class="form-control-file">
             </div>
         
-            <button type="submit" class="btn btn-primary">Cargar Tarea</button>
-            <a href="{{ route('home') }}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-info">Cargar Tarea</button>
+            <a href="{{ route('tareas.index', ['materia' => $materia->id]) }}" class="btn btn-details">cancelar</a>
         </form>
     </div>
 @endsection

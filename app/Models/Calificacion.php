@@ -5,20 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+// En el modelo Calificacion
 class Calificacion extends Model
 {
+
     use HasFactory;
 
     protected $table = 'calificaciones';
 
-    public function estudiante()
-{
-    return $this->belongsTo(User::class, 'estudiante_id');
-}
+    protected $fillable = ['tarea_estudiante_id', 'puntaje'];
 
-
-    public function materia()
+    public function tareaEstudiante()
     {
-        return $this->belongsTo(Materia::class, 'materia_id');
+        return $this->belongsTo(TareaEstudiante::class);
     }
 }
+

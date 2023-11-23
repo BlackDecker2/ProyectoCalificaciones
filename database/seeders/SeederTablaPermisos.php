@@ -46,7 +46,9 @@ class SeederTablaPermisos extends Seeder
             'editar-tarea',
             'borrar-tarea',
             'cargar-tarea',
-            
+            //matricular estudiantes
+            'matricular-estudiantes',
+            'desmatricular-estudiantes',
         ];
         foreach ($permisos as $permiso) {
             // Busca el permiso por nombre

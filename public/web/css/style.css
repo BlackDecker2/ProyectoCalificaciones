@@ -792,18 +792,93 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .card .card-header, .card .card-body, .card .card-footer {
-    background-color: transparent;
+    background-color: #e9e9e9;
     padding: 20px 25px;
 }
 
 .card .navbar {
-    position: static;
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    z-index: 2; /* Asegura que el z-index del dropdown sea mayor que el del card-body */
 }
 
 .card .card-body {
     padding-top: 20px;
     padding-bottom: 20px;
+    overflow: visible; /* Ajusta esto según tus necesidades */
+    position: relative;
 }
+.dropdown-menu.dropdown-menu-sm {
+    font-size: 14px;
+    letter-spacing: normal;
+    padding: 10px 20px;
+    color: rgb(255, 0, 0);
+    position: absolute;
+    z-index: 1000;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Agregamos una transición para el cambio de color */
+}
+
+a.dropdown-item {
+    padding: 10px 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Agregamos la misma transición aquí */
+}
+
+a.dropdown-item:focus,
+a.dropdown-item:active,
+a.dropdown-item.active {
+    background-color: #ef6767;
+    color: #f10000 !important;
+}
+
+/* Aplica una transición a todas las propiedades durante 0.3 segundos */
+.dropdown-menu {
+    transition: all 0.3s ease;
+}
+
+/* Ajusta el color de fondo y el color del texto al pasar el mouse sobre los items */
+.dropdown-item:hover {
+    background-color: rgb(235, 62, 62);
+    color: #fc0000 !important;
+}
+
+/* Agrega una transición suave al fondo del dropdown cuando se muestra/oculta */
+.dropdown-menu {
+    opacity: 0; /* Inicialmente, establece la opacidad en 0 para la transición */
+}
+
+/* Aplica la opacidad completa cuando el dropdown está abierto */
+.show .dropdown-menu {
+    opacity: 1;
+}
+.card-body-tareas {
+    z-index: 1;
+}
+
+.dropdown-menu {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+}
+
+
+
+
+.dropdown-menu.dropdown-menu-sm {
+    font-size: 14px;
+    letter-spacing: normal;
+    padding: 10px 20px;
+    color: #6c757d;
+    position: absolute;
+    z-index: 1000;
+    right: 0; /* Ajusta esto para alinear el menú con el borde derecho del botón */
+}
+
+
 
 .card .card-body .section-title {
     margin: 30px 0 10px 0;
@@ -1278,13 +1353,23 @@ select.form-control:not([size]):not([multiple]) {
     border-top: none;
 }
 
-.table:not(.table-sm):not(.table-md):not(.dataTable) td,
+.table:not(.table-sm):not(.table-md):not(.dataTable) td{
+    padding: 0 25px;
+    height: 60px;
+    vertical-align: middle;
+    font-family:  Verdana, Geneva, Tahoma, sans-serif;
+    color: #000000;
+    background-color: rgba(255, 254, 254, 0.5)
+}
+
+
 .table:not(.table-sm):not(.table-md):not(.dataTable) th {
     padding: 0 25px;
     height: 60px;
     vertical-align: middle;
     font-family: sans-serif;
-    color: #350707be;
+    color: #000000be;
+    background-color: #ffffff00;
 }
 
 .table:not(.table-sm) thead th {
@@ -1457,20 +1542,20 @@ table tr:hover .table-links {
 
 /* 3.10 Pagination */
 .page-item .page-link {
-    color: #6777ef;
+    color: #efba67;
     border-radius: 3px;
     margin: 0 3px;
 }
 
 .page-item.active .page-link {
-    background-color: #6777ef;
-    border-color: #6777ef;
+    background-color: #f7a40c;
+    border-color: #efb967;
 }
 
 .page-item.disabled .page-link {
     border-color: transparent;
     background-color: #f9fafe;
-    color: #6777ef;
+    color: #efb967;
     opacity: .6;
 }
 
@@ -1481,7 +1566,7 @@ table tr:hover .table-links {
 }
 
 .page-link:hover {
-    background-color: #6777ef;
+    background-color: #efb967;
     color: #fff;
     border-color: transparent;
 }
@@ -1539,7 +1624,7 @@ table tr:hover .table-links {
 }
 
 .badge.badge-dark {
-    background-color: #191d21;
+    background-color: #b63737;
 }
 
 h1 .badge {
@@ -1740,18 +1825,18 @@ h6 .badge {
 }
 
 .btn-danger, .btn-danger.disabled {
-    box-shadow: 0 2px 6px #fd9b96;
-    background-color: #fc544b;
-    border-color: #fc544b;
+    box-shadow: 0 2px 6px #e0706b;
+    background-color: #f71e13;
+    border-color: #fa4239;
     color: #fff;
 }
 
 .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.disabled:hover, .btn-danger.disabled:focus, .btn-danger.disabled:active {
-    background-color: #fb160a !important;
+    background-color: #ff0d00 !important;
 }
 
 .btn-outline-danger:hover, .btn-outline-danger:focus, .btn-outline-danger:active, .btn-outline-danger.disabled:hover, .btn-outline-danger.disabled:focus, .btn-outline-danger.disabled:active {
-    background-color: #fb160a !important;
+    background-color: #ff0d00 !important;
     color: #fff !important;
 }
 
@@ -1821,26 +1906,27 @@ h6 .badge {
 
 .btn-info, .btn-info.disabled {
     box-shadow: 0 2px 6px #ffffff;
-    background-color: #3213a096;
-    border-color: #7a86b6;
+    background-color: rgb(247, 207, 33);
+    border-color: rgb(243, 220, 88);
     color: #fff;
 }
 
 .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.disabled:hover, .btn-info.disabled:focus, .btn-info.disabled:active {
-    background-color: #26166d !important;
+    background-color: #bda626 !important;
 }
 
 
 .btn-details, .btn-details.disabled {
     box-shadow: 0 2px 6px #ffffff;
-    background-color: #cde01c;
-    border-color: #dddf96;
+    background-color: #f57936;
+    border-color: #d49c68;
     color: #fff;
 }
 
 
 .btn-details:hover, .btn-details:focus, .btn-details:active, .btn-details.disabled:hover, .btn-details.disabled:focus, .btn-details.disabled:active {
-    background-color: #b0b300 !important;
+    background-color: #ec4618 !important;
+    color: white;
 }
 
 
@@ -1871,14 +1957,14 @@ h6 .badge {
 }
 
 .btn-index, .btn-index.disabled {
-    color: rgb(5, 5, 5);
-    box-shadow: 0 2px 6px #ffffff;
-    background-color: #e5ff00;
-    border-color: #feffda;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 2px 6px rgb(255, 255, 255);
+    background-color: #ffa600;
+    border-color: #ffefda;
 }
 
 .btn-index:focus, .btn-index.disabled:focus {
-    background-color: #fffb00 !important;
+    background-color: #ff8800 !important;
 }
 
 .btn-primary:focus:active, .btn-primary.disabled:focus:active {
@@ -1959,6 +2045,17 @@ h6 .badge {
     background-size: 30px;
     color: transparent !important;
     pointer-events: none;
+}
+
+
+.dropdown-menu.dropdown-menu-sm {
+    font-size: 14px;
+    letter-spacing: normal;
+    padding: 10px 20px;
+    color: #6c757d;
+    
+    z-index: 1000;
+    right: 0; /* Ajusta esto para alinear el menú con el borde derecho del botón */
 }
 
 /* 3.13 Media */
@@ -2784,11 +2881,11 @@ body, html {
 }
 
 body {
-    background-color: #f4f6f9;
+    background-color: #afafaf7a;
     font-size: 14px;
     font-weight: 400;
     font-family: "Nunito", "Segoe UI", arial;
-    color: #6c757d;
+    color: #000000;
 }
 
 a.bb {
@@ -3287,9 +3384,10 @@ pre {
 }
 
 .section .section-header {
+    box-shadow: 0 4px 8px rgba(255, 244, 244, 0.03);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
-    background-color: #fff;
+    background-color: #d4d2d2;
+    margin-top: 0%;
     border-radius: 3px;
     border: none;
     position: relative;
@@ -3304,7 +3402,7 @@ pre {
     font-weight: 700;
     display: inline-block;
     font-size: 24px;
-    margin-top: 3px;
+    margin-top: 0px;
     color: #34395e;
 }
 
@@ -3453,7 +3551,7 @@ pre {
     top: 0;
     height: 100%;
     width: 250px;
-    background-color: #fff;
+    background-color: #ffffff;
     z-index: 880;
     left: 0;
 }
@@ -3972,8 +4070,8 @@ body.layout-3 .main-footer {
 
 /* Estilos para el botón de accesibilidad */
 #accessibility-button {
-    background-color: #007BFF;
-    color: #fff;
+    background-color: #ffffff;
+    color: #000000;
     border: none;
     cursor: pointer;
     padding: 10px;

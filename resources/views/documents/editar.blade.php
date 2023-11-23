@@ -25,6 +25,6 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Actualizar</button>
-        <a href="{{ route('documents.index') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ route('documents.index') }}" class="btn btn-info">Cancelar</a>
     </form>
 @endsection

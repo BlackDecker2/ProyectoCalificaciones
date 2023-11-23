@@ -31,7 +31,9 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Matricular Estudiantes</button>
+            <button type="submit" class="btn btn-details">Matricular Estudiantes</button>
+            <a href="{{ route('tareas.index', ['materia' => $materia->id]) }}" class="btn btn-info">Cancelar</a>
+
         </form>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>

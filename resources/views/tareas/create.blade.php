@@ -51,8 +51,8 @@
                 <input type="file" name="archivo" id="archivo" class="form-control-file">
             </div>
 
-            <button type="submit" class="btn btn-primary">Crear Tarea</button>
-            <a href="{{ route('tareas.index', ['materia' => $materia->id]) }}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-info">Crear Tarea</button>
+            <a href="{{ route('tareas.index', ['materia' => $materia->id]) }}" class="btn btn-details">Cancelar</a>
         </form>
         <script>
             document.addEventListener('DOMContentLoaded', function () {

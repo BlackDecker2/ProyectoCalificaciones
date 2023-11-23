@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="submit" class="btn btn-details">Guardar</button>
                         
                     </div>
                     {!! Form::close() !!}

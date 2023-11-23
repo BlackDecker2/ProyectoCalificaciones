@@ -26,11 +26,15 @@
                                 {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
                             </div>
                             <div class="form-group">
+                                <label for="nombre">carrera</label>
+                                {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
+                            </div>
+                            <div class="form-group">
                                 <label for="codigo">Código de la Materia:</label>
                                 {!! Form::text('codigo', null, ['class' => 'form-control']) !!}
                             </div>
                             <label for="profesores">Profesores:</label>
-                            <select name="profesores[]" multiple>
+                            <select name="profesores[]" multiple style="border: ridge;">
                                 @foreach ($profesores as $profesor)
                                     <option value="{{ $profesor->id }}">{{ $profesor->name }}</option>
                                 @endforeach
@@ -38,8 +42,8 @@
 
                             <!-- Puedes agregar más campos según tus necesidades -->
 
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                            <a href="{{ route('materias.index') }}" class="btn btn-secondary">Cancelar</a>
+                            <button type="submit" class="btn btn-details">Guardar</button>
+                            <a href="{{ route('materias.index') }}" class="btn btn-info">Cancelar</a>
                             {!! Form::close() !!}
                         </div>
                     </div>

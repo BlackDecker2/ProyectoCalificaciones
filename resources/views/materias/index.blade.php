@@ -48,11 +48,11 @@
                                     <div class="card-header" style="background-color: #e71212; color: white; font-size: 20px;">
                                         {{ $materia->nombre }}
                                     </div>
-                                    <div class="card-body">
+                                    <div class="card-body" style="background-color: #ffffff">
                                         <p style="font-weight: bold;">Profesores:</p>
                                         <ul>
                                             @foreach($materia->profesores as $profesor)
-                                                <li style="color: #070100">{{ $profesor->name }}</li>
+                                                <li style="color: rgb(255, 38, 0)">{{ $profesor->name }}</li>
                                             @endforeach
                                         </ul>
                                         <p style="font-weight: bold;">Código: {{ $materia->codigo }}</p>
@@ -60,7 +60,9 @@
                                     </div>
                                     
                                     <div class="card-footer">
+                                        @can('editar-materia')
                                         <a class="btn btn-info" href="{{ route('materias.edit', $materia->id) }}">Editar</a>
+                                        @endcan
                                         <a class="btn btn-details" href="{{ route('materias.show', $materia) }}">Ver detalles</a>
                                         @can('borrar-materia')
                                         {!! Form::open(['method' => 'DELETE', 'route' => ['materias.destroy', $materia->id], 'style' => 'display:inline']) !!}

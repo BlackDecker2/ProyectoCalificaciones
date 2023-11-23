@@ -53,7 +53,7 @@ public function store(Request $request, Materia $materia)
         'descripcion' => 'required',
         'fecha_vencimiento' => 'required|date',
         'porcentaje' => 'required',
-        'archivo' => 'required|file|mimes:pdf,docx,txt,jpg,zip,rar,png,sql',
+        'archivo' => 'required|file|mimes:pdf,docx,txt,jpg,zip,rar,png,sql,odt',
     ]);
 
     $archivo = $request->file('archivo');
@@ -98,7 +98,7 @@ public function store(Request $request, Materia $materia)
             'descripcion' => 'required',
             'fecha_vencimiento' => 'required|date',
             'porcentaje' => 'required|integer|min:0|max:100',
-            'archivo' => 'sometimes|mimes:pdf,docx,txt,jpg,zip,rar',
+            'archivo' => 'sometimes|mimes:pdf,docx,txt,jpg,zip,rar,png,sql',
         ]);
 
         $tarea->nombre = $request->input('nombre');
@@ -108,9 +108,9 @@ public function store(Request $request, Materia $materia)
 
         if ($request->hasFile('archivo')) {
             $archivo = $request->file('archivo');
-            $nombre_archivo = time() . '_' . $archivo->getClientOriginalName();
-            $ruta_archivo = $archivo->storeAs('tareas', $nombre_archivo);
-            $tarea->archivo = $nombre_archivo;
+            $nombreArchivo = $archivo->getClientOriginalName();
+            $archivo->move(public_path('/tareas/'), $nombreArchivo);
+            $tarea->archivo = $nombreArchivo;
         }
 
         $tarea->save();

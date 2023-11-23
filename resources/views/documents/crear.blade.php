@@ -12,7 +12,10 @@
             <label for="nombre">Nombre del documento</label>
             <input type="text" name="nombre" id="nombre" class="form-control" value="{{ old('nombre') }}" required>
         </div>
-
+        <div class="form-group">
+            <label for="nombre">Tipo Documentos</label>
+            <input type="text" name="nombre" id="nombre" class="form-control" value="{{ old('nombre') }}" required>
+        </div>
         <div class="form-group">
             <label for="descripcion">Descripción</label>
             <textarea name="descripcion" id="descripcion" class="form-control">{{ old('descripcion') }}</textarea>

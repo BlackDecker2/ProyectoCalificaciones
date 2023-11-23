@@ -42,7 +42,7 @@
         
                 
                             <table class="table table-striped mt-2">
-                                <thead style="background-color:#ec4b4b">                                                       
+                                <thead style="background-color: #c20003">                                                       
                                     <th style="color:#fff;">Rol</th>
                                     <th style="color:#fff;">Acciones</th>
                                 </thead>  
@@ -52,7 +52,7 @@
                                     <td>{{ $role->name }}</td>
                                     <td>                                
                                         @can('editar-rol')
-                                            <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Editar</a>
+                                            <a class="btn btn-details" href="{{ route('roles.edit',$role->id) }}">Editar</a>
                                         @endcan
                                         
                                         @can('borrar-rol')

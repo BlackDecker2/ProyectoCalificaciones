@@ -9,9 +9,13 @@
     <div class="section-header">
         <h3 class="page__heading">Tareas de {{ $materia->nombre }}</h3>
         <!-- En materias.show.blade.php u otra vista donde muestres la información de la materia -->
-        <a href="{{ route('materias.matricular', $materia) }}" class="btn btn-lighting" style="margin-left: 45%;">Matricular Estudiantes</a>
-        <a href="{{ route('materias.calificaciones', $materia) }}" class="btn btn-lighting" style="margin-left: 10px;">Ver Estudiantes</a>
+        @can('matricular-estudiantes')
+        
+            <a href="{{ route('materias.matricular', $materia) }}" class="btn btn-details" style="margin-left: 45%;">Matricular Estudiantes</a>
+            @endcan
 
+            <a href="{{ route('materias.calificaciones', $materia) }}" class="btn btn-details" style="margin-left: 10px;">Ver Estudiantes</a>
+        
     </div>
     <div class="section-body">
         <div class="row">
@@ -40,7 +44,7 @@
                         document.getElementById('alert-warning').style.display = 'none';
                     }, 4000);
                 </script>
-                    <div class="card-body">
+                    <div class="card-body-tareas" style="background-color: #d4d2d2">
                         @can('crear-tarea')
                         <a class="btn btn-warning" href="{{ route('tareas.create', ['materia' => $materia->id]) }}">Nueva Tarea</a>
                         @endcan
@@ -51,46 +55,49 @@
                                 <div class="card">
                                     
                                     
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $tarea->id }}" aria-expanded="true" aria-controls="collapse{{ $tarea->id }}" style="text-decoration: none; background-color:rgba(192, 190, 190, 0.267); color: #ff0000e0; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size:2em; transition: color 0.3s;" onmouseover="this.style.color='#007bff'" onmouseout="this.style.color='#333'">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $tarea->id }}" aria-expanded="true" aria-controls="collapse{{ $tarea->id }}" style="text-decoration: none; background-color:#ec0000e7; color: #fff7f7e0; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size:2em; transition: color 0.8s;" onmouseover="this.style.color='black'" onmouseout="this.style.color='white'">
                                         {{ $tarea->nombre }}
                                     </button>
                                     
                                  
 
-                                    <div id="collapse{{ $tarea->id }}" class="collapse" aria-labelledby="heading{{ $tarea->id }} "  data-parent="#accordionTareas">
+                                    <div id="collapse{{ $tarea->id }}" class="collapse" aria-labelledby="heading{{ $tarea->id }}" data-parent="#accordionTareas">
                                         <div class="card-body" style="background-color: rgba(170, 156, 156, 0.103); color:rgb(26, 23, 23)">
                                             <p><strong>Descripcion:</strong> {{ $tarea->descripcion }}</p>
                                             <p class="fec_vencimiento" style="color: red"><strong>Fecha de Vencimiento:</strong> {{ $tarea->fecha_vencimiento }}</p>
                                             <p><strong>Porcentaje:</strong> {{ $tarea->porcentaje }}</p>
                                             <p><strong>Materia:</strong> {{ $tarea->materia->nombre }}</p>
+                                            
                                             @if ($tarea->archivo)
-                                            <a class="btn btn-light" style="margin-top: 20px"  href="{{ asset('tareas/' . $tarea->archivo) }}" target="_blank">Ver Archivo</a>
+                                                <a class="btn btn-details" style="margin-top: 20px;" href="{{ asset('tareas/' . $tarea->archivo) }}" target="_blank">Ver Archivo</a>
+                                                
+                                                <!-- Botón de acciones con Dropdown -->
+                                                <div class="btn-group" style="margin-top: 20px;">
+                                                   <div class="dropdown dropup">
+                                                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Acciones
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="border-block: inherit;">
+                                                            @can('cargar-tarea')
+                                                                <button class="dropdown-item cargar-tarea-btn" data-tarea-id="{{ $tarea->id }}" data-materia-id="{{ $materia->id }}" data-toggle="modal" data-target="#cargarTareaModal">Cargar Tarea</button>
+                                                            @endcan
+                                                            <button class="dropdown-item ir-a-tareas-btn" data-tarea-id="{{ $tarea->id }}" data-materia-id="{{ $materia->id }}" data-toggle="modal" data-target="#tareasEstudiantesModal">Ir a Tareas de Estudiantes</button>
+                                                            @can('editar-tarea')
+                                                                <button class="dropdown-item editar-tarea-btn" data-materia-id="{{ $materia->id }}" data-tarea-id="{{ $tarea->id }}" data-toggle="modal" data-target="#editarTareaModal">Editar Tarea</button>
+                                                            @endcan
+                                                            @can('borrar-tarea')
+                                                                <button class="dropdown-item borrar-tarea-btn" data-materia-id="{{ $materia->id }}" data-tarea-id="{{ $tarea->id }}" data-toggle="modal" data-target="#eliminarTareaModal">Eliminar</button>
+                                                            @endcan
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
                                             @endif
-                                           
-                                                @can('cargar-tarea')
-                                                <a class="btn btn-success" href="{{ route('tareas-estudiante.create', ['tareaId' => $tarea->id]) }}">Cargar Tarea</a>
-                                                @endcan
-
-                                                <a class="btn btn-index" href="{{ route('tareas-estudiante.index', ['tarea' => $tarea]) }}">Ver Tareas de Estudiantes</a>
-
-
-                                            @can('editar-tarea')
-                                            <a href="{{ route('tareas.edit', ['materia' => $materia, 'tarea' => $tarea]) }}" class="btn btn-primary" style="margin-top: 22px">Editar Tarea</a>
-                                            @endcan
-                                            @can('borrar-tarea')
-                                            <form action="{{ route('tareas.destroy', [$materia, $tarea]) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" style="margin-top: 20px">Eliminar</button>
-                                            </form>
-                                            @endcan
-
-                                        
                                         </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
+                                        
+                                    </div> 
+                                </div>    
+                            @endforeach  
                     </div>
                 </div>
             </div>

@@ -23,5 +23,18 @@ class TareaEstudiante extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function materia()
+    {
+        return $this->belongsTo(Materia::class);
+    }
+    
+    public function calificacion()
+    {
+        return $this->hasOne(Calificacion::class);
+    }
+
+
+
 }
 

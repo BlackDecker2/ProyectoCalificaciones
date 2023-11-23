@@ -37,7 +37,7 @@
                       <div class="card-body">                           
                         
                             <table class="table table-striped mt-2">
-                              <thead style="background-color:#ec4b4b">                                     
+                              <thead style="background-color: #c20003">                                     
                                   <th style="display: none;">ID</th>
                                   <th style="color:#fff;">Nombre</th>
                                   <th style="color:#fff;">E-mail</th>
@@ -60,7 +60,7 @@
 
                                     <td>     
                                       @can('editar-usuario')                             
-                                      <a class="btn btn-info" href="{{ route('usuarios.edit',$usuario->id) }}">Editar</a>
+                                      <a class="btn btn-details" href="{{ route('usuarios.edit',$usuario->id) }}">Editar</a>
                                       @endcan
                                       @can('borrar-usuario')
                                       {!! Form::open(['method' => 'DELETE','route' => ['usuarios.destroy', $usuario->id],'style'=>'display:inline']) !!}
