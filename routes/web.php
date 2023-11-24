@@ -106,6 +106,15 @@ Route::get('materias/{materia}/tareas-estudiante/index/{tarea}', [TareaEstudiant
 Route::get('materias/{materia}/tareas-estudiante/create/{tareaId}', [TareaEstudianteController::class, 'create'])->name('tareas-estudiante.create');
 // routes/web.php
 
-Route::post('/tareas-estudiante', [TareaEstudianteController::class, 'store'])->name('tareas-estudiante.store');
+// routes/web.php
+
+Route::get('materias/{materia}/tareas-estudiante/edit/{tareaEstudiante}', [TareaEstudianteController::class, 'edit'])->name('tareas-estudiante.edit');
+
+Route::put('materias/{materia}/tareas-estudiante/update/{tareaEstudiante}', [TareaEstudianteController::class, 'update'])->name('tareas-estudiante.update');
+
+
+// routes/web.php
+
+Route::post('materias/{materia}/tareas-estudiante', [TareaEstudianteController::class, 'store'])->name('tareas-estudiante.store');
 // En routes/web.php
 Route::put('/tareas-estudiante/{tareaEstudiante}/calificar', [TareaEstudianteController::class, 'calificar'])->name('tareas-estudiante.calificar');

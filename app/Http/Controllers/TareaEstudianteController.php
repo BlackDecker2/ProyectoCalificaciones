@@ -34,39 +34,73 @@ class TareaEstudianteController extends Controller
 
     
 
-    public function store(Request $request, Tarea $tarea)
+    public function store(Request $request, Materia $materia, Tarea $tarea)
+    {
+        $request->validate([
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'archivo' => 'required|file|mimes:pdf,docx,txt,jpg,zip,rar,png,sql',
+        ]);
+    
+        // Obtiene el usuario actualmente autenticado
+        $user = Auth::user();
+    
+        $archivo = $request->file('archivo');
+        $nombreArchivo = $archivo->getClientOriginalName();
+        $archivo->move(public_path('/tareas_estudiante/'), $nombreArchivo); // Ajusta la ubicación según tus necesidades
+    
+        $tareaId = $request->input('tarea_id');
+    
+        $tareaEstudiante = new TareaEstudiante([
+            'nombre' => $request->input('nombre'),
+            'descripcion' => $request->input('descripcion'),
+            'archivo' => $nombreArchivo,
+        ]);
+    
+        // Asigna el ID del usuario autenticado como 'user_id'
+        $tareaEstudiante->user_id = $user->id;
+    
+        $tareaEstudiante->tarea_id = $tareaId;
+    
+        $user->tareasEstudiante()->save($tareaEstudiante);
+    
+        return redirect()->route('tareas.index', ['materia' => $materia->id])->with('success', 'Tarea cargada correctamente');
+    }
+
+    public function edit(Materia $materia, TareaEstudiante $tareaEstudiante)
+    {
+        return view('tareas-estudiante.edit', compact('materia', 'tareaEstudiante'));
+    }
+
+
+
+
+
+    public function update(Request $request, Materia $materia, TareaEstudiante $tareaEstudiante)
 {
     $request->validate([
         'nombre' => 'required',
         'descripcion' => 'required',
-        'archivo' => 'required|file|mimes:pdf,docx,txt,jpg,zip,rar,png,sql',
+        'archivo' => 'file|mimes:pdf,docx,txt,jpg,zip,rar,png,sql',
     ]);
 
-    // Obtiene el usuario actualmente autenticado
-    $user = Auth::user();
-
-    $archivo = $request->file('archivo');
-    $nombreArchivo = $archivo->getClientOriginalName();
-    $archivo->move(public_path('/tareas_estudiante/'), $nombreArchivo); // Ajusta la ubicación según tus necesidades
-
-
-    $tareaId = $request->input('tarea_id');
-
-    $tareaEstudiante = new TareaEstudiante([
+    $tareaEstudiante->update([
         'nombre' => $request->input('nombre'),
         'descripcion' => $request->input('descripcion'),
-        'archivo' => $nombreArchivo,
+        // Agrega aquí la lógica para actualizar el archivo si se proporciona uno nuevo
     ]);
 
-    // Asigna el ID del usuario autenticado como 'user_id'
-    $tareaEstudiante->user_id = $user->id;
+    if ($request->hasFile('archivo')) {
+        // Agrega aquí la lógica para manejar el archivo adjunto
+        // Puedes usar el mismo código que en tu método store
+    }
 
-    $tareaEstudiante->tarea_id = $tareaId;
-
-    $user->tareasEstudiante()->save($tareaEstudiante);
-
-    return redirect()->route('home')->with('success', 'Tarea cargada correctamente');;
+    return redirect()->route('tareas.index', ['materia' => $materia])
+        ->with('success', 'Tarea estudiante actualizada correctamente');
 }
+
+
+    
 
 
 public function calificar(Request $request, TareaEstudiante $tareaEstudiante)

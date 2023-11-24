@@ -70,31 +70,37 @@
                                             
                                             @if ($tarea->archivo)
                                                 <a class="btn btn-details" style="margin-top: 20px;" href="{{ asset('tareas/' . $tarea->archivo) }}" target="_blank">Ver Archivo</a>
-                                                
                                                 <!-- Botón de acciones con Dropdown -->
-                                                <div class="btn-group" style="margin-top: 20px;">
-                                                   <div class="dropdown dropup">
-                                                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            Acciones
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="border-block:inherit;">
-                                                            @can('cargar-tarea')
-                                                                <a class="dropdown-item" style="background-color: #ddd8d8" href="{{ route('tareas-estudiante.create', ['tareaId' => $tarea->id, 'materia' => $materia->id]) }}">Cargar Tarea</a>
-                                                            @endcan
-                                                            <a class="dropdown-item" style="background-color: #ddd8d8;" href="{{ route('tareas-estudiante.index', ['materia' => $materia->id, 'tarea' => $tarea->id]) }}">Ir a Tareas de Estudiantes</a>
-                                                            @can('editar-tarea')
-                                                                <a class="dropdown-item" style="background-color: #ddd8d8" href="{{ route('tareas.edit', ['materia' => $materia, 'tarea' => $tarea]) }}">Editar Tarea</a>
-                                                            @endcan
-                                                            @can('borrar-tarea')
-                                                                <form action="{{ route('tareas.destroy', [$materia, $tarea]) }}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item" style="background-color: #ddd8d8">Eliminar</button>
-                                                                </form>
-                                                            @endcan
+                                                @foreach ($tarea->tareasEstudiantes as $tareaEstudiante)
+
+                                                    <div class="btn-group" style="margin-top: 20px; background-color:#ddd8d8">
+                                                        <div class="dropdown dropup">
+                                                            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                Acciones
+                                                            </button>
+                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="border-block:inherit;">
+                                                                @if(auth()->user()->haCargadoTarea($tarea))
+                                                                    <a class="dropdown-item" style="background-color: #ddd8d8;" href="{{ route('tareas-estudiante.edit', ['materia' => $materia->id, 'tareaEstudiante' => $tareaEstudiante->id]) }}">Editar Tarea Estudiante</a>
+                                                                @else
+                                                                    @can('cargar-tarea')
+                                                                        <a class="dropdown-item" style="background-color: #ddd8d8" href="{{ route('tareas-estudiante.create', ['tareaId' => $tarea->id, 'materia' => $materia->id]) }}">Cargar Tarea</a>
+                                                                    @endcan
+                                                                @endif
+                                                                <a class="dropdown-item" style="background-color: #ddd8d8;" href="{{ route('tareas-estudiante.index', ['materia' => $materia->id, 'tarea' => $tarea->id]) }}">Ir a Tareas de Estudiantes</a>
+                                                                @can('editar-tarea')
+                                                                    <a class="dropdown-item" style="background-color: #ddd8d8" href="{{ route('tareas.edit', ['materia' => $materia, 'tarea' => $tarea]) }}">Editar Tarea</a>
+                                                                @endcan
+                                                                @can('borrar-tarea')
+                                                                    <form action="{{ route('tareas.destroy', [$materia, $tarea]) }}" method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="dropdown-item" style="background-color: #ddd8d8">Eliminar</button>
+                                                                    </form>
+                                                                @endcan
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    @endforeach
                                             @endif
                                         </div>
                                         

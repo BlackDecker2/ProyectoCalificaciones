@@ -5,7 +5,7 @@
 @section('content')
     <div style="margin-top: 3em;" class="container">
         <h1 class="my-4">Tareas - {{ $tarea->nombre }}</h1>
-        <a href="{{ route('tareas.index', ['materia' => $materia->id]) }}" class="btn btn-details">Volver a Tareas</a>
+<a href="{{ route('tareas.index', ['materia' => $materia->id]) }}" class="btn btn-details">Volver a Tareas</a>
         @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -80,7 +80,7 @@
                             <label for="calificacion">Calificación:</label>
                             <input type="number" name="calificacion" step="0.01" class="form-control" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Actualizar Calificación</button>
+                        <button type="submit" class="btn btn-details">Actualizar Calificación</button>
                     </form>
                 </div>
             </div>

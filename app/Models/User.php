@@ -63,4 +63,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(TareaEstudiante::class);
     }
+
+    public function haCargadoTarea($tarea)
+    {
+        return $this->tareasEstudiante()->where('tarea_id', $tarea->id)->exists();
+    }
+    public function tareaEstudiante()
+    {
+        return $this->hasMany(TareaEstudiante::class);
+    }
 }
